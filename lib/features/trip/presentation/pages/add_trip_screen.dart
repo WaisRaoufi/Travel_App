@@ -5,10 +5,10 @@ import 'package:travel_app_riverpod/features/trip/presentation/providers/trip_pr
 
 class AddTripScreen extends ConsumerWidget {
   final _formKey = GlobalKey<FormState>();
-  final _titleController = TextEditingController(text: 'city 1');
-  final _descController = TextEditingController(text: 'Best City ever');
-  final _locationController = TextEditingController(text: 'Herat');
-  final _pictureController = TextEditingController(text: 'http herat.png');
+  final _titleController = TextEditingController(text: '');
+  final _descController = TextEditingController(text: '');
+  final _locationController = TextEditingController(text: '');
+  final _pictureController = TextEditingController(text: '');
   List<String> pictures = [];
 
   @override
@@ -35,6 +35,9 @@ class AddTripScreen extends ConsumerWidget {
           ),
           ElevatedButton(
             onPressed: () {
+              if (_titleController.text.trim().isEmpty) {
+                return;
+              }
               pictures.add(_pictureController.text);
               if (_formKey.currentState!.validate()) {
                 final newTrip = Trip(
@@ -46,6 +49,12 @@ class AddTripScreen extends ConsumerWidget {
                 );
                 ref.read(tripListNotifierProvider.notifier).addNewTrip(newTrip);
                 ref.watch(tripListNotifierProvider.notifier).loadTrip();
+                _titleController.clear();
+                _descController.clear();
+                _locationController.clear();
+                _pictureController.clear();
+
+                pictures.clear();
               }
             },
             child: Text('Add Trip'),

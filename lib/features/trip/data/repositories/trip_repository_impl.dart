@@ -27,7 +27,7 @@ class TripRepositoryImpl implements TripRepository {
     List<Trip> res = tripModels.map((model) => model.toEntity()).toList();
     return Right(res);
     }catch(err) {
-      return left(someSpecificError(err.toString()));
+      return left(SomeSpecificError(err.toString()));
     }
     
   }

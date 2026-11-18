@@ -4,6 +4,6 @@ abstract class Failure {
   Failure(this.message);
 }
 
-class someSpecificError extends Failure {
-  someSpecificError(String message) : super(message);
+class SomeSpecificError extends Failure {
+  SomeSpecificError(String message) : super(message);
 }
